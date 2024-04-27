@@ -1,0 +1,59 @@
+CREATE TABLE Trip (
+    TripNumber INT PRIMARY KEY,
+    StartLocationName VARCHAR(255),
+    DestinationName VARCHAR(255)
+);
+
+CREATE TABLE Bus (
+    BusID VARCHAR(50) PRIMARY KEY,
+    Model VARCHAR(100),
+    Year INT
+);
+
+CREATE TABLE Driver (
+    DriverName VARCHAR(255) PRIMARY KEY,
+    DriverTelephoneNumber VARCHAR(15)
+);
+
+CREATE TABLE TripOffering (
+    TripNumber INT,
+    Date VARCHAR(255),
+    ScheduledStartTime VARCHAR(255),
+    ScheduledArrivalTime VARCHAR(255),
+    DriverName VARCHAR(255),
+    BusID VARCHAR(50),
+    PRIMARY KEY (TripNumber, Date, ScheduledStartTime),
+    FOREIGN KEY (TripNumber) REFERENCES Trip(TripNumber),
+    FOREIGN KEY (DriverName) REFERENCES Driver(DriverName),
+    FOREIGN KEY (BusID) REFERENCES Bus(BusID)
+);
+
+CREATE TABLE Stop (
+    StopNumber INT PRIMARY KEY,
+    StopAddress VARCHAR(255)
+);
+
+CREATE TABLE ActualTripStopInfo (
+    TripNumber INT,
+    Date VARCHAR(255),
+    ScheduledStartTime VARCHAR(255),
+    StopNumber INT,
+    ScheduledArrivalTime VARCHAR(255),
+    ActualStartTime VARCHAR(255),
+    ActualArrivalTime VARCHAR(255),
+    NumberOfPassengerIn INT,
+    NumberOfPassengerOut INT,
+    PRIMARY KEY (TripNumber, Date, ScheduledStartTime, StopNumber),
+    FOREIGN KEY (TripNumber, Date, ScheduledStartTime) REFERENCES TripOffering(TripNumber, Date, ScheduledStartTime),
+    FOREIGN KEY (StopNumber) REFERENCES Stop(StopNumber)
+);
+
+CREATE TABLE TripStopInfo (
+    TripNumber INT,
+    StopNumber INT,
+    SequenceNumber INT,
+    DrivingTime VARCHAR(255),
+    PRIMARY KEY (TripNumber, StopNumber),
+    FOREIGN KEY (TripNumber) REFERENCES Trip(TripNumber),
+    FOREIGN KEY (StopNumber) REFERENCES Stop(StopNumber)
+);
