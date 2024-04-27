@@ -79,7 +79,7 @@ public class PomonaTransit {
         System.out.println("2:  Delete a Trip Offering");
         System.out.println("3:  Add a Trip Offering");
         System.out.println("4:  Change a Driver");
-        System.out.println("5:  tChange a Bus");
+        System.out.println("5:  Change a Bus");
         System.out.println("6:  Display Trip Stops");
         System.out.println("7:  Display Weekly Schedule for Driver");
         System.out.println("8:  Add a Driver");
